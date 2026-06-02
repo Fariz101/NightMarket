@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // components/receipt-modal.tsx
 "use client";
 
@@ -127,7 +128,7 @@ export default function ReceiptModal({ transaction }: { transaction: Transaction
 
   // Kerangka Modal DOM yang dilempar ke Portal body
   const modalContent = (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
       {/* 1. Backdrop Blur Overlay (Klik di luar modal untuk menutup) */}
       <div 
         className="absolute inset-0 bg-black/75 backdrop-blur-md transition-opacity duration-300 animate-fade-in"
@@ -164,7 +165,7 @@ export default function ReceiptModal({ transaction }: { transaction: Transaction
             </div>
             <div className="flex justify-between">
               <span className="text-cyan-500">Nomor Telepon:</span>
-              <span className="truncate max-w-[220px]">{customerPhone}</span>
+              <span className="truncate max-w-55">{customerPhone}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-cyan-500">Waktu Masuk:</span>
@@ -201,7 +202,7 @@ export default function ReceiptModal({ transaction }: { transaction: Transaction
           </button>
           <button
             onClick={handlePrint}
-            className="px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-bold rounded text-xs shadow-lg transition-all flex items-center gap-1.5"
+            className="px-4 py-2 bg-linear-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-bold rounded text-xs shadow-lg transition-all flex items-center gap-1.5"
           >
             <span>🖨️</span> Cetak / Export PDF
           </button>

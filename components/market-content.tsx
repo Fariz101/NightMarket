@@ -4,6 +4,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "next/navigation";
+import ReceiptModal from "./receipt";
 
 interface ProductItem {
   id: number;
@@ -60,14 +61,17 @@ function MarketExplorationContent() {
 
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [uploadingTrxId, setUploadingTrxId] = useState<string | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(
+    null,
+  );
 
   useEffect(() => {
     setMounted(true);
     fetchInitialData();
 
     window.addEventListener("transaction_success", fetchInitialData);
-    return () => window.removeEventListener("transaction_success", fetchInitialData);
+    return () =>
+      window.removeEventListener("transaction_success", fetchInitialData);
   }, []);
 
   const fetchInitialData = async () => {
@@ -91,7 +95,8 @@ function MarketExplorationContent() {
     })
       .then((res) => res.json())
       .then((resData) => {
-        if (resData && Array.isArray(resData.data)) setTransactions(resData.data);
+        if (resData && Array.isArray(resData.data))
+          setTransactions(resData.data);
         else if (Array.isArray(resData)) setTransactions(resData);
       })
       .catch((err) => console.error(err));
@@ -100,15 +105,20 @@ function MarketExplorationContent() {
   const filteredProducts = useMemo(() => {
     return products
       .filter((item) => {
-        const matchSearch = (item.name || "").toLowerCase().includes(search.toLowerCase());
-        const matchKategori = kategoriSel === "Semua Kategori" || item.category === kategoriSel;
+        const matchSearch = (item.name || "")
+          .toLowerCase()
+          .includes(search.toLowerCase());
+        const matchKategori =
+          kategoriSel === "Semua Kategori" || item.category === kategoriSel;
         return matchSearch && matchKategori;
       })
       .sort((a, b) => {
         if (urutkan === "Harga Termurah") return a.price - b.price;
         if (urutkan === "Harga Termahal") return b.price - a.price;
-        if (urutkan === "Penjualan Terbanyak") return (b.sold || 0) - (a.sold || 0);
-        if (urutkan === "Penjualan Terkecil") return (a.sold || 0) - (b.sold || 0);
+        if (urutkan === "Penjualan Terbanyak")
+          return (b.sold || 0) - (a.sold || 0);
+        if (urutkan === "Penjualan Terkecil")
+          return (a.sold || 0) - (b.sold || 0);
         return 0;
       });
   }, [search, kategoriSel, urutkan, products]);
@@ -116,11 +126,13 @@ function MarketExplorationContent() {
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage) || 1;
   const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const listKategoriUnik = useMemo(() => {
-    const setKategori = new Set(products.map((p) => p.category).filter(Boolean));
+    const setKategori = new Set(
+      products.map((p) => p.category).filter(Boolean),
+    );
     return ["Semua Kategori", ...Array.from(setKategori)];
   }, [products]);
 
@@ -130,14 +142,17 @@ function MarketExplorationContent() {
     if (!token) return alert("Anda belum login");
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/cart`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/cart`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ productId: Number(product.id), amount: 1 }),
         },
-        body: JSON.stringify({ productId: Number(product.id), amount: 1 }),
-      });
+      );
       const result = await response.json();
       if (response.ok && result.success) {
         alert(`${product.name} dimasukkan ke keranjang!`);
@@ -164,7 +179,7 @@ function MarketExplorationContent() {
           method: "PATCH",
           headers: { Authorization: `Bearer ${token}` },
           body: formData,
-        }
+        },
       );
       if (response.ok) {
         alert("Bukti pembayaran berhasil diunggah!");
@@ -181,7 +196,7 @@ function MarketExplorationContent() {
 
   return (
     <div className="p-4 bg-transparent min-h-full text-white font-mono flex flex-col space-y-6">
-        <Suspense fallback={null}>
+      <Suspense fallback={null}>
         <SearchParamsReader onSearch={setSearch} />
       </Suspense>
       {/* FILTER CONTROL HUD */}
@@ -206,7 +221,11 @@ function MarketExplorationContent() {
               className="bg-[#010a14] border border-cyan-500/30 text-cyan-400 rounded-lg pl-3 pr-8 py-2.5 text-xs font-bold uppercase focus:outline-none focus:border-cyan-400 transition-all cursor-pointer w-full md:w-44 appearance-none"
             >
               {listKategoriUnik.map((kat) => (
-                <option key={kat} value={kat} className="bg-[#021020] text-cyan-300">
+                <option
+                  key={kat}
+                  value={kat}
+                  className="bg-[#021020] text-cyan-300"
+                >
                   {kat}
                 </option>
               ))}
@@ -225,16 +244,28 @@ function MarketExplorationContent() {
               <option value="Terbaru" className="bg-[#021020] text-cyan-300">
                 Terbaru
               </option>
-              <option value="Harga Termurah" className="bg-[#021020] text-cyan-300">
+              <option
+                value="Harga Termurah"
+                className="bg-[#021020] text-cyan-300"
+              >
                 Harga: Rendah → Tinggi
               </option>
-              <option value="Harga Termahal" className="bg-[#021020] text-cyan-300">
+              <option
+                value="Harga Termahal"
+                className="bg-[#021020] text-cyan-300"
+              >
                 Harga: Tinggi → Rendah
               </option>
-              <option value="Penjualan Terbanyak" className="bg-[#021020] text-cyan-300">
+              <option
+                value="Penjualan Terbanyak"
+                className="bg-[#021020] text-cyan-300"
+              >
                 Penjualan Terbanyak
               </option>
-              <option value="Penjualan Terkecil" className="bg-[#021020] text-cyan-300">
+              <option
+                value="Penjualan Terkecil"
+                className="bg-[#021020] text-cyan-300"
+              >
                 Penjualan Terkecil
               </option>
             </select>
@@ -297,7 +328,10 @@ function MarketExplorationContent() {
                 </span>
 
                 <span className="absolute bottom-2 right-3 text-[9px] font-mono text-cyan-600 font-bold bg-[#010811]/80 px-1.5 py-0.5 rounded border border-cyan-950">
-                  ID-{String(prod.id || "").slice(-4).toUpperCase()}
+                  ID-
+                  {String(prod.id || "")
+                    .slice(-4)
+                    .toUpperCase()}
                 </span>
 
                 <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -308,7 +342,10 @@ function MarketExplorationContent() {
               </div>
 
               <div className="p-4 flex-1 flex flex-col justify-between space-y-4 bg-linear-to-b from-[#020e1c]/40 to-[#010812]/90">
-                <div className="cursor-pointer" onClick={() => setSelectedProduct(prod)}>
+                <div
+                  className="cursor-pointer"
+                  onClick={() => setSelectedProduct(prod)}
+                >
                   <h4 className="text-white font-black text-sm tracking-wide uppercase line-clamp-2 h-10 group-hover:text-cyan-300 transition-colors">
                     {prod.name}
                   </h4>
@@ -325,7 +362,13 @@ function MarketExplorationContent() {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center text-[10px] text-cyan-500/70 font-bold px-1">
                     <span>UNIT QUANTITY:</span>
-                    <span className={prod.stock > 0 ? "text-cyan-400" : "text-red-400 font-black"}>
+                    <span
+                      className={
+                        prod.stock > 0
+                          ? "text-cyan-400"
+                          : "text-red-400 font-black"
+                      }
+                    >
                       {prod.stock > 0 ? `${prod.stock} STOCKS` : "EMPTY"}
                     </span>
                   </div>
@@ -336,7 +379,9 @@ function MarketExplorationContent() {
                     className="w-full py-2.5 relative overflow-hidden group/btn disabled:opacity-30 disabled:cursor-not-allowed text-white font-black rounded-tl-xl rounded-br-xl text-xs uppercase tracking-widest transition-all focus:outline-none cursor-pointer bg-linear-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 shadow-[0_4px_15px_rgba(249,115,22,0.2)]"
                   >
                     <div className="absolute inset-y-0 left-0 w-1 bg-white/40 group-hover/btn:translate-x-100 transition-transform duration-1000 ease-out" />
-                    {prod.stock > 0 ? "➕ ADD TO CART" : "❌ PRODUCT NOT AVAILABLE"}
+                    {prod.stock > 0
+                      ? "➕ ADD TO CART"
+                      : "❌ PRODUCT NOT AVAILABLE"}
                   </button>
                 </div>
               </div>
@@ -353,7 +398,8 @@ function MarketExplorationContent() {
       {filteredProducts.length > 0 && (
         <div className="flex justify-between items-center border-t border-cyan-500/20 pt-5 text-xs text-cyan-600 font-bold">
           <div className="uppercase tracking-wider">
-            INDEX: {paginatedProducts.length} / {filteredProducts.length} PRODUCTS SHOWED
+            INDEX: {paginatedProducts.length} / {filteredProducts.length}{" "}
+            PRODUCTS SHOWED
           </div>
           <div className="flex items-center gap-1.5">
             <button
@@ -373,7 +419,9 @@ function MarketExplorationContent() {
               </button>
             ))}
             <button
-              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage(Math.min(currentPage + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
               className="w-8 h-8 flex items-center justify-center bg-[#020d1a] border border-cyan-500/30 rounded text-cyan-400 disabled:opacity-20 transition-all hover:border-cyan-400 cursor-pointer"
             >
@@ -441,8 +489,16 @@ function MarketExplorationContent() {
                       <span className="text-cyan-600 block text-[7px] uppercase font-black">
                         STOCK:
                       </span>
-                      <span className={selectedProduct.stock > 0 ? "text-cyan-400 font-bold" : "text-red-400 font-bold"}>
-                        {selectedProduct.stock > 0 ? `${selectedProduct.stock} U` : "EMPTY"}
+                      <span
+                        className={
+                          selectedProduct.stock > 0
+                            ? "text-cyan-400 font-bold"
+                            : "text-red-400 font-bold"
+                        }
+                      >
+                        {selectedProduct.stock > 0
+                          ? `${selectedProduct.stock} U`
+                          : "EMPTY"}
                       </span>
                     </div>
                     <div>
@@ -461,7 +517,9 @@ function MarketExplorationContent() {
                     </span>
                     <div className="bg-[#01070f]/50 border border-cyan-950/60 p-3 rounded text-[11px] text-gray-300 leading-relaxed max-h-36 overflow-y-auto custom-scrollbar">
                       {selectedProduct.description || (
-                        <span className="text-cyan-700/60 italic">No Description.</span>
+                        <span className="text-cyan-700/60 italic">
+                          No Description.
+                        </span>
                       )}
                     </div>
                   </div>
@@ -493,7 +551,7 @@ function MarketExplorationContent() {
               </div>
             </div>
           </div>,
-          document.body
+          document.body,
         )}
 
       {/* PORTAL TRANSMISSION DRAWER MODAL */}
@@ -532,7 +590,9 @@ function MarketExplorationContent() {
                       <div className="flex justify-between items-center text-[9px]">
                         <span className="text-cyan-400 font-black tracking-widest">
                           LOG-#
-                          {trx.id ? String(trx.id).slice(-8).toUpperCase() : "UNKNOWN"}
+                          {trx.id
+                            ? String(trx.id).slice(-8).toUpperCase()
+                            : "UNKNOWN"}
                         </span>
                         <span
                           className={`px-2 py-0.5 rounded text-[8px] font-black border uppercase tracking-wider ${trx.status?.toLowerCase() === "approved" || trx.status?.toLowerCase() === "selesai" || trx.status?.toLowerCase() === "paid" ? "bg-emerald-950/80 text-emerald-400 border-emerald-500/40" : trx.status?.toLowerCase() === "rejected" ? "bg-red-950/80 text-red-400 border-red-500/40" : "bg-amber-950/80 text-amber-400 border-amber-500/40"}`}
@@ -541,62 +601,95 @@ function MarketExplorationContent() {
                         </span>
                       </div>
                       <div className="space-y-1.5 text-gray-300 text-xs bg-[#020e1a]/50 p-2.5 rounded border border-cyan-950">
-                        {(trx.transactionItems || trx.items)?.map((item: any, i: number) => (
-                          <div key={i} className="flex justify-between items-center">
-                            <span className="text-white/90 font-medium truncate max-w-60">
-                              🔹 {item.product?.name || item.name || "Unknown Asset"}
-                            </span>
-                            <span className="text-cyan-400 font-bold bg-cyan-950/40 border border-cyan-900 px-1.5 py-0.5 rounded text-[10px]">
-                              x{item.amount || item.quantity}
-                            </span>
-                          </div>
-                        ))}
+                        {(trx.transactionItems || trx.items)?.map(
+                          (item: any, i: number) => (
+                            <div
+                              key={i}
+                              className="flex justify-between items-center"
+                            >
+                              <span className="text-white/90 font-medium truncate max-w-60">
+                                🔹{" "}
+                                {item.product?.name ||
+                                  item.name ||
+                                  "Unknown Asset"}
+                              </span>
+                              <span className="text-cyan-400 font-bold bg-cyan-950/40 border border-cyan-900 px-1.5 py-0.5 rounded text-[10px]">
+                                x{item.amount || item.quantity}
+                              </span>
+                            </div>
+                          ),
+                        )}
                       </div>
                       <div className="flex justify-between items-center text-[10px] pt-2 border-t border-cyan-950 text-cyan-600 font-bold">
                         <span>
-                          DATE: {trx.createdAt ? new Date(trx.createdAt).toLocaleDateString("id-ID") : "-"}
+                          DATE:{" "}
+                          {trx.createdAt
+                            ? new Date(trx.createdAt).toLocaleDateString(
+                                "id-ID",
+                              )
+                            : "-"}
                         </span>
                         <span className="text-orange-400 font-black text-xs">
                           Rp {(trx.totalPrice || 0).toLocaleString("id-ID")}
                         </span>
                       </div>
-                      {trx.status?.toUpperCase() === "PENDING" && !trx.paymentProof && (
-                        <div className="mt-1 pt-2.5 border-t border-cyan-500/10">
-                          <p className="text-[9px] text-amber-400 mb-1.5 font-black uppercase tracking-wider">
-                            ▲ PAYMENT PROOF REQUIRED (MAX 5MB):
-                          </p>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => {
-                              if (e.target.files && e.target.files[0]) {
-                                handleUploadProof(trx.id, e.target.files[0]);
-                              }
-                            }}
-                            disabled={uploadingTrxId === trx.id}
-                            className="text-[9px] text-slate-400 file:mr-2.5 file:py-1 file:px-2.5 file:rounded-tl file:rounded-br file:border-0 file:text-[9px] file:font-black file:uppercase file:bg-orange-500 file:text-white hover:file:bg-orange-600 w-full cursor-pointer disabled:opacity-30"
-                          />
-                          {uploadingTrxId === trx.id && (
-                            <span className="text-[9px] text-cyan-400 animate-pulse mt-1.5 block font-bold">
-                              SENDING PAYMENT PROOF...
+                      {/* Bukti Bayar Component Area */}
+                      <div className="flex flex-col bg-[#01070e]/40 p-2.5 rounded border border-cyan-950/40 text-[11px] gap-1.5">
+                        <span className="text-cyan-600/60 text-[8px] font-black tracking-wider uppercase">
+                          PAYMENT PROOF
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[12px]"></span>
+                          {trx.paymentProof ? (
+                            <div className="text-cyan-400 hover:text-cyan-300 font-bold transition-all underline decoration-cyan-900">
+                              <ReceiptModal transaction={trx} />
+                            </div>
+                          ) : (
+                            <span className="text-red-400/60 italic font-medium text-[10px] uppercase tracking-wide">
+                              No digital receipt compiled
                             </span>
                           )}
                         </div>
-                      )}
-                      {trx.paymentProof && trx.status?.toUpperCase() === "PENDING" && (
-                        <div className="mt-1 bg-emerald-950/20 border border-emerald-500/20 p-2 rounded text-center">
-                          <p className="text-[9px] text-emerald-400 font-black uppercase tracking-wide">
-                            ✓ PAYMENT SUBMITTED, WAITING FOR APPROVAL
-                          </p>
-                        </div>
-                      )}
+                      </div>
+                      {trx.status?.toUpperCase() === "PENDING" &&
+                        !trx.paymentProof && (
+                          <div className="mt-1 pt-2.5 border-t border-cyan-500/10">
+                            <p className="text-[9px] text-amber-400 mb-1.5 font-black uppercase tracking-wider">
+                              ▲ PAYMENT PROOF REQUIRED (MAX 5MB):
+                            </p>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                  handleUploadProof(trx.id, e.target.files[0]);
+                                }
+                              }}
+                              disabled={uploadingTrxId === trx.id}
+                              className="text-[9px] text-slate-400 file:mr-2.5 file:py-1 file:px-2.5 file:rounded-tl file:rounded-br file:border-0 file:text-[9px] file:font-black file:uppercase file:bg-orange-500 file:text-white hover:file:bg-orange-600 w-full cursor-pointer disabled:opacity-30"
+                            />
+                            {uploadingTrxId === trx.id && (
+                              <span className="text-[9px] text-cyan-400 animate-pulse mt-1.5 block font-bold">
+                                SENDING PAYMENT PROOF...
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      {trx.paymentProof &&
+                        trx.status?.toUpperCase() === "PENDING" && (
+                          <div className="mt-1 bg-emerald-950/20 border border-emerald-500/20 p-2 rounded text-center">
+                            <p className="text-[9px] text-emerald-400 font-black uppercase tracking-wide">
+                              ✓ PAYMENT SUBMITTED, WAITING FOR APPROVAL
+                            </p>
+                          </div>
+                        )}
                     </div>
                   ))
                 )}
               </div>
             </div>
           </div>,
-          document.body
+          document.body,
         )}
     </div>
   );
