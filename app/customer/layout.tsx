@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 
 // 🌟 IMPORT LANGSUNG DARI FILE types.ts
@@ -26,14 +26,13 @@ function deleteClientCookie(name: string) {
 export default function CustomerLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const dropdownRef = useRef<HTMLDivElement>(null);
   
   // ========================================================
   // 2. STATES MANAGEMENT
   // ========================================================
   const [mounted, setMounted] = useState(false);
-  const [searchValue, setSearchValue] = useState(searchParams.get("search") || "");
+const [searchValue, setSearchValue] = useState("");
   const [profile, setProfile] = useState<Customer | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -104,7 +103,7 @@ export default function CustomerLayout({ children }: { children: React.ReactNode
   // ========================================================
   const handleSearchChange = (val: string) => {
     setSearchValue(val);
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(window.location.search);
     if (val) params.set("search", val);
     else params.delete("search");
     router.replace(`${pathname}?${params.toString()}`);
