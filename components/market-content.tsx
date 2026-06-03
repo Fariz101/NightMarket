@@ -640,7 +640,7 @@ function MarketExplorationContent() {
                         </span>
                         <div className="flex items-center gap-2">
                           <span className="text-[12px]"></span>
-                          {trx.paymentProof ? (
+                          {trx.paymentProof && trx.status?.toUpperCase() === "APPROVED" ? (
                             <div className="text-cyan-400 hover:text-cyan-300 font-bold transition-all underline decoration-cyan-900">
                               <ReceiptModal transaction={trx} />
                             </div>
