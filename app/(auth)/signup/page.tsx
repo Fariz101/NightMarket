@@ -158,7 +158,7 @@ export default function SignUpPage() {
                 <input 
                   type="text" required value={name} onChange={(e) => setName(e.target.value)}
                   placeholder="E.G. RYLEY ROBINSON"
-                  className="w-full px-4 py-2.5 bg-[#020b15] border border-cyan-900/60 rounded text-cyan-100 placeholder-cyan-950 text-xs focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all uppercase"
+                  className="w-full px-4 py-2.5 bg-[#020b15] border border-cyan-900/60 rounded text-cyan-100 placeholder-cyan-950 text-xs focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all"
                 />
               </div>
             ) : (
@@ -168,7 +168,7 @@ export default function SignUpPage() {
                   <input 
                     type="text" required value={name} onChange={(e) => setName(e.target.value)}
                     placeholder="E.G. SEAMONTH STORE"
-                    className="w-full px-4 py-2.5 bg-[#020b15] border border-cyan-900/60 rounded text-cyan-100 placeholder-cyan-950 text-xs focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all uppercase"
+                    className="w-full px-4 py-2.5 bg-[#020b15] border border-cyan-900/60 rounded text-cyan-100 placeholder-cyan-950 text-xs focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all"
                   />
                 </div>
                 <div>
@@ -176,7 +176,7 @@ export default function SignUpPage() {
                   <input 
                     type="text" required value={owner} onChange={(e) => setOwner(e.target.value)}
                     placeholder="E.G. MARGUERIT MAIDA"
-                    className="w-full px-4 py-2.5 bg-[#020b15] border border-cyan-900/60 rounded text-cyan-100 placeholder-cyan-950 text-xs focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all uppercase"
+                    className="w-full px-4 py-2.5 bg-[#020b15] border border-cyan-900/60 rounded text-cyan-100 placeholder-cyan-950 text-xs focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all"
                   />
                 </div>
               </>

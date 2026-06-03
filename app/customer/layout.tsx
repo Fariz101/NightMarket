@@ -243,7 +243,7 @@ const [searchValue, setSearchValue] = useState("");
                 <div className="absolute top-2 right-2 text-[7px] font-black text-cyan-600/80 tracking-widest uppercase">ID: {profile?.id}</div>
                 <span className="text-xs font-black text-white uppercase tracking-wide truncate">{profile?.name || "-"}</span>
                 <span className="text-[9px] text-cyan-500 font-mono mt-1 truncate/60">✉ {profile?.user?.email || "-"}</span>
-                <span className="text-[9px] text-cyan-500 font-mono mt-0.5 truncate/60">📞 +62{profile?.phone || "-"}</span>
+                <span className="text-[9px] text-cyan-500 font-mono mt-0.5 truncate/60">📞 {profile?.phone || "-"}</span>
                 <span className="text-[9px] text-cyan-500 font-mono mt-0.5 truncate/60">📍 {profile?.address || "-"}</span>
               </div>
               

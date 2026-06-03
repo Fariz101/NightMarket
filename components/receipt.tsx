@@ -48,7 +48,7 @@ export default function ReceiptModal({ transaction }: { transaction: Transaction
     }).format(amount);
   };
 
-  const customerPhone = transaction.customer?.phone || "Tidak ada nomor telepon";
+
   
   const formattedDate = transaction.createdAt 
     ? new Date(transaction.createdAt).toLocaleDateString("id-ID", {
@@ -84,8 +84,8 @@ export default function ReceiptModal({ transaction }: { transaction: Transaction
           <div class="space-y-2 text-xs border-b-2 border-dashed border-gray-400 pb-4 mb-4">
             <div class="flex justify-between"><span>ID TRANSAKSI:</span><span class="font-bold">#${transaction.id}</span></div>
             <div class="flex justify-between"><span>TANGGAL   :</span><span>${formattedDate}</span></div>
-            <div class="flex justify-between"><span>PELANGGAN :</span><span class="uppercase">${transaction.customer?.name || "Customer"}</span></div>
-            <div class="flex justify-between"><span>NOMOR TELEPON   :</span><span>${customerPhone}</span></div>
+            <div class="flex justify-between"><span>PELANGGAN :</span><span class="uppercase">${transaction.customer?.name}</span></div>
+            <div class="flex justify-between"><span>NOMOR TELEPON   :</span><span>${transaction.customer?.phone}</span></div>
           </div>
 
           <div class="space-y-3 text-xs border-b-2 border-dashed border-gray-400 pb-4 mb-4">
@@ -101,9 +101,9 @@ export default function ReceiptModal({ transaction }: { transaction: Transaction
 
           ${transaction.paymentProof ? `
             <div class="mt-4">
-              <p class="text-[10px] font-bold uppercase text-gray-500 mb-2 tracking-wider">⚡ Lampiran Bukti Transfer:</p>
+              <p class="text-[10px] font-bold uppercase text-gray-500 mb-2 tracking-wider">📃 Lampiran Bukti Transfer:</p>
               <div class="border border-gray-300 p-1 rounded max-w-xs mx-auto">
-                <img src="${transaction.paymentProof}" class="w-full h-auto object-contain max-h-[350px]" alt="Bukti Transfer" />
+                <img src="${transaction.paymentProof}" class="w-full h-auto object-contain max-h-87.5" alt="Bukti Transfer" />
               </div>
             </div>
           ` : ""}
@@ -161,11 +161,11 @@ export default function ReceiptModal({ transaction }: { transaction: Transaction
           <div className="space-y-2 bg-[#03101a]/60 p-3 rounded border border-cyan-900/40 text-cyan-100">
             <div className="flex justify-between">
               <span className="text-cyan-500">Pelanggan:</span>
-              <span className="font-bold">{transaction.customer?.name || "Customer"}</span>
+              <span className="font-bold">{transaction.customer?.name}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-cyan-500">Nomor Telepon:</span>
-              <span className="truncate max-w-55">{customerPhone}</span>
+              <span className="truncate max-w-55">{transaction.customer?.phone}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-cyan-500">Waktu Masuk:</span>
