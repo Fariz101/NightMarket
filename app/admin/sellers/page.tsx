@@ -134,7 +134,7 @@ export default async function SellersPage(prop: Props) {
           <div className="col-span-2"><span>USERNAME</span></div>
           <div className="col-span-2"><span>EMAIL</span></div>
           <div className="col-span-1.5 md:col-span-2 flex items-center gap-1">
-            <span>FULL NAME</span>
+            <span>STORE NAME</span>
             <SortButton columnKey="name" /> 
           </div>
           <div className="col-span-1.5 md:col-span-1 flex items-center gap-1">
@@ -207,7 +207,7 @@ export default async function SellersPage(prop: Props) {
                 {/* 3. FULL NAME (col-span-2) */}
                 <div className="col-span-1 md:col-span-2 min-w-0">
                   <small className="text-[8px] font-black text-orange-500/60 uppercase tracking-widest block md:hidden mb-0.5">
-                    Name
+                    Store Name
                   </small>
                   <span className="font-black text-white block truncate w-full uppercase tracking-wide">
                     {seller.name || "UNNAMED_UNIT"}

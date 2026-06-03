@@ -112,7 +112,7 @@ export default function EditSeller({ selectedData }: EditSellerProps) {
               <input type="text" disabled value={selectedData.user?.username || ""} className="w-full bg-[#01070e] border border-cyan-950 text-cyan-700 font-bold rounded p-2.5 opacity-60 cursor-not-allowed text-xs" />
             </div>
             <div>
-              <label className="block text-[10px] font-bold text-cyan-400 uppercase tracking-widest mb-1">FULL NAME</label>
+              <label className="block text-[10px] font-bold text-cyan-400 uppercase tracking-widest mb-1">STORE NAME</label>
               <input 
                 required 
                 type="text" 

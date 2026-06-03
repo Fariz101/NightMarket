@@ -93,7 +93,7 @@ export default function AddSeller() {
             
             <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-4 bg-[#020d1a]/40">
               <div>
-                <label className="block text-[10px] font-bold text-cyan-400 uppercase tracking-widest mb-1.5">FULL NAME</label>
+                <label className="block text-[10px] font-bold text-cyan-400 uppercase tracking-widest mb-1.5">STORE NAME</label>
                 <input required type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full bg-[#010810] border border-cyan-950 text-cyan-50 rounded p-2.5 focus:outline-none focus:border-cyan-500 text-xs transition-colors" />
               </div>
               <div>
