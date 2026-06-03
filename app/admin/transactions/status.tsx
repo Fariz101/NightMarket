@@ -36,14 +36,14 @@ export default function StatusDropdown({ transactionId, currentStatus, token }: 
       const result = await response.json();
 
       if (!response.ok) {
-        alert(`Failed to update status: ${result.message || "Error"}`);
+        alert(`Gagal memperbarui status transaksi: ${result.message}`);
         setStatus(currentStatus); // Rollback pilihan visual jika backend menolak
       } else {
         router.refresh(); // Segarkan muatan data server component
       }
     } catch (error) {
       console.error("Patch connection error:", error);
-      alert("Failed to update status.");
+      alert("Terjadi keslahan saat memperbarui status transaksi");
       setStatus(currentStatus);
     } finally {
       setLoading(false);

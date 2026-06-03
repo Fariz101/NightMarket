@@ -48,13 +48,13 @@ export default function AddAdmin() {
       const res = await response.json();
 
       if (response.ok && res.success) {
-        alert("Admin data added successfully!");
+        alert("Admin berhasil ditambahkan!");
         setIsOpen(false);
         setName(""); setUsername(""); setEmail(""); setPassword(""); setFile(null);
         router.refresh();
       } else {
         const errorMsg = Array.isArray(res.message) ? res.message.join(", ") : res.message;
-        alert(`Error: ${errorMsg || "failed to add admin."}`);
+        alert(`Error: ${errorMsg || "Gagal menambahkan admin."}`);
       }
     } catch (error) {
       console.error(error);

@@ -99,12 +99,12 @@ export default function EditProduct({ selectedData }: EditProductProps) {
       const res = await response.json();
 
       if (response.ok && res.success) {
-        alert("Product modified successfully.");
+        alert("Produk berhasil diperbarui.");
         setIsOpen(false);
         router.refresh();
       } else {
         const errorMsg = Array.isArray(res.message) ? res.message.join(", ") : res.message;
-        alert(`Modification Failed: ${errorMsg || "Protocol response error."}`);
+        alert(`Modification Failed: ${errorMsg}`);
       }
     } catch (error) {
       console.error(error);

@@ -128,16 +128,16 @@ export default function EditProduct({ selectedData }: EditProductProps) {
       const res = await response.json();
 
       if (response.ok && res.success) {
-        alert("Product modified successfully.");
+        alert("Produk berhasil diperbarui.");
         setIsOpen(false);
         router.refresh();
       } else {
         const errorMsg = Array.isArray(res.message) ? res.message.join(", ") : res.message;
-        alert(`Modification Failed: ${errorMsg || "Protocol response error."}`);
+        alert(`Gagal memperbarui produk: ${errorMsg}`);
       }
     } catch (error) {
       console.error(error);
-      alert("Core uplink network connection failed.");
+      alert("Terjadi kesalahan saat memperbarui produk");
     } finally {
       setLoading(false);
     }
@@ -163,7 +163,7 @@ export default function EditProduct({ selectedData }: EditProductProps) {
                 <input type="text" disabled value={`PRD-${selectedData.id}`} className="w-full bg-[#010810] border border-cyan-950 text-cyan-800 font-bold rounded p-2 cursor-not-allowed opacity-70" />
               </div>
               <div>
-                <label className="block font-black text-cyan-600 uppercase text-[8px] mb-0.5">LOCKED SELLER ID</label>
+                <label className="block font-black text-cyan-600 uppercase text-[8px] mb-0.5">SELLER ID</label>
                 <input type="text" disabled value={sellerId ? `ID-${sellerId}` : "SYNCING..."} className="w-full bg-[#010810] border border-cyan-950 text-cyan-800 font-bold rounded p-2 cursor-not-allowed opacity-70" />
               </div>
             </div>
@@ -210,7 +210,7 @@ export default function EditProduct({ selectedData }: EditProductProps) {
             </div>
 
             <div>
-              <label className="block font-black text-orange-400 uppercase text-[9px] mb-1">DESCRIPTION</label>
+              <label className="block font-black text-orange-400 uppercase text-[9px] mb-1">PRODUCT DESCRIPTION</label>
               <textarea required rows={2} value={description} onChange={(e) => setDescription(e.target.value)} className="w-full bg-[#010810] border border-cyan-900 text-white rounded p-2 focus:outline-none focus:border-orange-500 resize-none" />
             </div>
 

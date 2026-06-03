@@ -140,7 +140,7 @@ const [searchValue, setSearchValue] = useState("");
       }
       fetchCartData();
     } catch (error) {
-      console.error("Gagal update kuantitas:", error);
+      console.error("Gagal memperbarui kuantitas barang:", error);
     }
   };
 

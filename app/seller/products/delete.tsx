@@ -40,15 +40,15 @@ export default function DeleteProduct({ selectedData }: DeleteProductProps) {
       const res = await response.json();
 
       if (response.ok && res.success) {
-        alert("Product deleted successfully.");
+        alert("Produk berhasil dihapus.");
         setIsOpen(false);
         router.refresh(); 
       } else {
-        alert(`Delete Interrupted: ${res.message || "Operation failed."}`);
+        alert(`Gagal menghapus produk: ${res.message}`);
       }
     } catch (error) {
       console.error(error);
-      alert("Failsafe activated: Terminal communication down.");
+      alert("Terjadi kesalahan saat menghapus produk");
     } finally {
       setLoading(false);
     }

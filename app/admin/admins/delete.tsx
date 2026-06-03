@@ -42,15 +42,15 @@ export default function DeleteAdmin({ selectedData }: DeleteAdminProps) {
       const res = await response.json();
 
       if (response.ok && res.success) {
-        alert("Admin data deleted successfully!");
+        alert("Admin berhasil dihapus!");
         setIsOpen(false);
         router.refresh();
       } else {
-        alert(`Error: ${res.message || "failed to delete admin."}`);
+        alert(`Error: ${res.message || "Gagal menghapus admin."}`);
       }
     } catch (error) {
       console.error(error);
-      alert("Error occurred while deleting admin.");
+      alert("Terjadi kesalahan saat menghapus admin.");
     } finally {
       setLoading(false);
     }

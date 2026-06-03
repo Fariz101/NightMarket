@@ -51,14 +51,14 @@ export default function AddProduct({ onProductAdded }: AddProductProps) {
           if (sellerData && sellerData.id) {
             setSellerId(sellerData.id.toString());
             // Gunakan storeName atau name sesuai response asli backend Anda
-            setCurrentStoreName(sellerData.storeName || sellerData.name || "UNKNOWN STATION");
+            setCurrentStoreName(sellerData.name || "-");
           } else {
-            setCurrentStoreName("FAILED TO PARSE STATION DATA");
+            setCurrentStoreName("Gagal memuat data profil penjual");
           }
         })
         .catch((err) => {
           console.error("Error loading seller credentials:", err);
-          setCurrentStoreName("CONNECTION TERMINAL FAILURE");
+          setCurrentStoreName("Terjadi kesalahan jaringan");
         });
     }
   }, [isOpen]);
@@ -100,7 +100,7 @@ export default function AddProduct({ onProductAdded }: AddProductProps) {
 
       // ⚠️ LOGIKA SENSITIF: Jangan langsung memunculkan alert sukses jika HTTP Status bukan 200/201
       if (response.ok && (res.success || response.status === 201)) {
-        alert("Product added successfully!");
+        alert("Produk berhasil ditambahkan!");
         
         // Reset Form State
         setName("");

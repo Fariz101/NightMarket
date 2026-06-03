@@ -46,7 +46,7 @@ export default function SignInPage() {
         else if (role === "SELLER") router.push("/seller/dashboard");
         else router.push("/customer/dashboard");
       } else {
-        alert("Response tidak valid dari server.");
+        alert("Response tidak valid dari server, Periksa kembali email dan password Anda.");
       }
     } catch (error) {
       console.error("Error during sign in:", error);
@@ -99,7 +99,7 @@ export default function SignInPage() {
         <form className="space-y-5" onSubmit={handleSignIn}>
           <div>
             <label htmlFor="email" className="block text-cyan-400 text-[10px] font-black uppercase tracking-widest mb-2">
-              🖲️ EMAIL
+              📧 EMAIL
             </label>
             <input 
               type="email" 

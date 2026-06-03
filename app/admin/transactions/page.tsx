@@ -162,7 +162,7 @@ export default async function TransactionsPage(prop: Props) {
         {/* DATA GRID AREA (3 KOLOM SEPERTI SUBNAUTICA) */}
         {displayedTransactions.length === 0 ? (
           <div className="mt-6 p-12 border border-dashed border-red-500/30 rounded bg-red-950/10 text-center text-red-400 text-xs uppercase tracking-[0.2em] font-black">
-            ⚠️ TRANSACTIONS DOES NOT EXIST ⚠️
+            TRANSACTIONS DOES NOT EXIST
           </div>
         ) : (
           <div className="mt-8">

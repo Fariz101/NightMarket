@@ -7,7 +7,7 @@ export default function CustomerDashboardPage() {
     <Suspense
       fallback={
         <div className="flex min-h-screen items-center justify-center bg-[#010812] text-xs text-cyan-400 font-mono tracking-widest animate-pulse">
-          LOADING DASHBOARD SYSTEM...
+          LOADING CUSTOMER DASHBOARD...
         </div>
       }
     >

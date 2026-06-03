@@ -44,11 +44,11 @@ export default function DeleteProduct({ selectedData }: DeleteProductProps) {
         setIsOpen(false);
         router.refresh(); 
       } else {
-        alert(`Delete Interrupted: ${res.message || "Operation failed."}`);
+        alert(`Delete error: ${res.message}`);
       }
     } catch (error) {
       console.error(error);
-      alert("Failsafe activated: Terminal communication down.");
+      alert(`error ${error}`);
     } finally {
       setLoading(false);
     }

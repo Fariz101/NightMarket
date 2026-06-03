@@ -60,16 +60,16 @@ export default function EditAdmin({ selectedData }: EditAdminProps) {
       const res = await response.json();
 
       if (response.ok && res.success) {
-        alert("Admin data updated successfully!");
+        alert("Admin berhasil diperbarui!");
         setIsOpen(false);
         router.refresh();
       } else {
         const errorMsg = Array.isArray(res.message) ? res.message.join(", ") : res.message;
-        alert(`Error: ${errorMsg || "failed to update admin."}`);
+        alert(`Error: ${errorMsg || "Gagal memperbarui admin."}`);
       }
     } catch (error) {
       console.error(error);
-      alert("Error occurred while updating admin.");
+      alert("Terjadi kesalahan saat memperbarui admin.");
     } finally {
       setLoading(false);
     }

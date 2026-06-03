@@ -55,7 +55,7 @@ export default function AddProduct() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!sellerId) return alert("Please select a valid station manager (seller).");
+    if (!sellerId) return alert("Please select a valid seller.");
     setLoading(true);
 
     try {
@@ -96,7 +96,7 @@ export default function AddProduct() {
       }
     } catch (error) {
       console.error(error);
-      alert("Terminal Connection Interrupted.");
+      alert(`error ${error}`);
     } finally {
       setLoading(false);
     }
@@ -201,9 +201,9 @@ export default function AddProduct() {
               </div>
 
               <div className="mt-2 flex justify-end gap-3 border-t border-cyan-950 pt-4 bg-[#010912] -mx-5 -mb-5 p-4 rounded-br-2xl">
-                <button type="button" onClick={() => setIsOpen(false)} className="px-4 py-1.5 border border-cyan-900 text-cyan-400 rounded-tl-md rounded-br-md hover:bg-cyan-950 transition-colors uppercase font-bold text-[11px]">Abort</button>
+                <button type="button" onClick={() => setIsOpen(false)} className="px-4 py-1.5 border border-cyan-900 text-cyan-400 rounded-tl-md rounded-br-md hover:bg-cyan-950 transition-colors uppercase font-bold text-[11px]">Cancel</button>
                 <button type="submit" disabled={loading} className="px-4 py-1.5 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-950 text-white font-black rounded-tl-md rounded-br-md uppercase tracking-wider transition-colors text-[11px]">
-                  {loading ? "Syncing..." : "Commit Entity"}
+                  {loading ? "Creating..." : "Create Product"}
                 </button>
               </div>
             </form>

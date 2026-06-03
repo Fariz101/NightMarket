@@ -44,7 +44,7 @@ async function getTransactions(token: string): Promise<Transaction[]> {
     const responseData = await response.json();
     return responseData.data || responseData || [];
   } catch (error) {
-    console.error("Error fetching transactions:", error);
+    console.error("Terjadi kesalahan saat memuat data transaksi:", error);
     return [];
   }
 }
@@ -62,7 +62,7 @@ async function getMySellerProfile(token: string) {
     const resData = await response.json();
     return resData.data || resData || null;
   } catch (error) {
-    console.error("Error fetching seller profile:", error);
+    console.error("Terjadi kesalahan saat memuat data profil penjual", error);
     return null;
   }
 }

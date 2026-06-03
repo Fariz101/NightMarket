@@ -44,7 +44,7 @@ async function getMyProducts(token: string): Promise<Product[]> {
     const resData = await response.json();
     return resData.data || resData || [];
   } catch (error) {
-    console.error("Failed to fetch seller products telemetry:", error);
+    console.error("Gagal memuat data produk:", error);
     return [];
   }
 }
@@ -64,7 +64,7 @@ async function getTransactions(token: string): Promise<Transaction[]> {
     const resData = await response.json();
     return resData.data || resData || [];
   } catch (error) {
-    console.error("Failed to fetch transactions ledger:", error);
+    console.error("Gagal memuat data transaksi:", error);
     return [];
   }
 }
@@ -83,7 +83,7 @@ async function getMySellerProfile(token: string): Promise<SellerProfile | null> 
     const resData = await response.json();
     return resData.data || resData || null;
   } catch (error) {
-    console.error("Failed to map seller terminal profile:", error);
+    console.error("Gagal memuat data profil penjual:", error);
     return null;
   }
 }

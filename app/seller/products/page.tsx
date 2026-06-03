@@ -47,7 +47,7 @@ async function getMyProducts(token: string): Promise<{
       data: finalData,
     };
   } catch (error) {
-    console.error("Gagal mengambil data produk internal:", error);
+    console.error("Gagal memuat data produk:", error);
     return { success: false, message: "Failed Connection", data: [] };
   }
 }

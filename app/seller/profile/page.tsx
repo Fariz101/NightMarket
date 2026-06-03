@@ -38,7 +38,7 @@ export default function SellerProfilePage() {
           }
         })
         .catch((err) => {
-          console.error("Error Fetch Profil Seller:", err);
+          console.error("Terjadi kesalahan saat memuat data penjual:", err);
         })
         .finally(() => {
           setLoading(false);
@@ -62,7 +62,7 @@ export default function SellerProfilePage() {
     return (
       <div className="max-w-2xl mx-auto space-y-8 font-mono mt-20 p-4">
         <div className="bg-[#120404]/90 backdrop-blur-xl border-2 border-red-500/30 p-8 rounded-br-2xl rounded-tl-2xl text-center text-red-400 text-xs tracking-wider uppercase font-black shadow-[0_0_30px_rgba(239,68,68,0.1)] before:content-[''] before:absolute before:top-0 before:left-0 before:w-4 before:h-4 before:border-t-2 before:border-l-2 before:border-red-500">
-          error: failed to load seller profile.
+          error: Gagal memuat data profil penjual.
         </div>
       </div>
     );

@@ -66,14 +66,14 @@ export default function SignUpPage() {
       const responseData = await response.json();
 
       if (!response.ok || responseData.success === false) {
-        alert(responseData.message || "Gagal melakukan pendaftaran.");
+        alert(responseData.message || "Gagal melakukan registrasi.");
         return;
       }
 
       alert("Registrasi Berhasil! Silakan masuk.");
       router.push("/");
     } catch (error) {
-      console.error("Error pendaftaran:", error);
+      console.error("Error saat registrasi:", error);
       alert("Terjadi masalah jaringan atau server.");
     } finally {
       setLoading(false);
@@ -147,7 +147,7 @@ export default function SignUpPage() {
               )}
               <input type="file" accept="image/*" onChange={handlePhotoChange} className="absolute inset-0 opacity-0 cursor-pointer" />
             </div>
-            <span className="text-[8px] text-cyan-700 uppercase font-bold tracking-wider">Upload Profile Photo</span>
+            <span className="text-[8px] text-cyan-700 uppercase font-bold tracking-wider">Upload Profile Photo (Optional)</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -244,7 +244,7 @@ export default function SignUpPage() {
           >
             <div className="absolute inset-0 bg-linear-to-r from-orange-600 to-amber-500 blur-sm opacity-30 group-hover:opacity-80 transition-opacity rounded" />
             <div className="relative w-full py-3.5 bg-linear-to-r from-orange-600 to-orange-500 border border-orange-400/30 rounded text-white font-black text-xs tracking-[0.2em] transition-all transform group-active:scale-[0.99] text-center uppercase">
-              {loading ? "CREATING PROFILE..." : "SIGN UP EXECUTION"}
+              {loading ? "REGISTERING..." : "SIGN UP EXECUTION"}
             </div>
           </button>
         </form>
